@@ -1,31 +1,19 @@
-const SomeBox = () => {
-    const pBig = "pt-6"
-    const pNone = "pt-0"
-    return (
-        <div className={`w-[200px] h-[200px] border-1 border-dimdim rounded-md pt-3 ${pBig} ${pNone} p-6`}>some box</div>
-    )
-}
+import ExpandableSidebar from "./package/layout/_ExpandableSidebar"
+import Hstack from "./package/layout/_HStack"
 
 const App = () => {
     return (
-        <div className="w-full h-full">
-            random page
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-            <SomeBox />
-        </div>
+        <Hstack>
+            <div className="grow">some siiic content here</div>
+            <ExpandableSidebar widthInPixel={200} position="RIGHT">
+                <p className="border-1 border-dimdim hover:border-dim">sidebar content</p>
+                <p className="border-1 border-dimdim hover:border-dim">sidebar content</p>
+                <p className="border-1 border-dimdim hover:border-dim">sidebar content</p>
+                <p className="border-1 border-dimdim hover:border-dim">sidebar content</p>
+                <p className="border-1 border-dimdim hover:border-dim">sidebar content</p>
+                <p className="border-1 border-dimdim hover:border-dim">sidebar content</p>
+            </ExpandableSidebar>
+        </Hstack>
     )
 }
 export default App

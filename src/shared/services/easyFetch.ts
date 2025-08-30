@@ -1,15 +1,14 @@
-import CustomError from "./customError"
+import CustomError from "./customError";
 
 const easyFetch = async <T>(url: string, options?: RequestInit): Promise<T> => {
-    const response = await fetch(url, options)
-    const json = await response.json()
+  const response = await fetch(url, options);
+  const json = await response.json();
 
-    if (!response.ok) {
-        throw new CustomError("API", json)
-    }
+  if (!response.ok) {
+    throw new CustomError("API", json);
+  }
 
-    const data: T = json.data
-    return data
-}
+  return json as T;
+};
 
-export default easyFetch
+export default easyFetch;

@@ -11,6 +11,9 @@ export interface Place {
   lon: number;
   description: string;
 }
+export interface PlaceResponse {
+  places: Place[];
+}
 export type ApiMethod = "GET" | "POST" | "DELETE";
 
 export interface ApiState {

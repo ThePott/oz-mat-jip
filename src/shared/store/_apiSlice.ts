@@ -1,7 +1,7 @@
 import type { StateCreator } from "zustand";
 import type { BoundState } from "./boundState";
-import type { ApiState, Place } from "./_apiInterfaces";
-import { makeUrlPlaces, type Endpoint } from "../services/apiUtils";
+import type { ApiState, PlaceResponse } from "./_apiInterfaces";
+import { makeUrlPlaces } from "../services/apiUtils";
 import easyFetch from "../services/easyFetch";
 
 export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
@@ -18,9 +18,10 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
       method,
       body,
     };
-    const result = await easyFetch(url, options);
+    const result = await easyFetch<PlaceResponse>(url, options);
     if (method === "GET") {
-      set({ placeArray: result as Place[] });
+      const placeArray = result.places;
+      set({ placeArray });
     }
   },
 });

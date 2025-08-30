@@ -8,7 +8,7 @@ const App = () => {
   const placeArray = useBoundStore((state) => state.placeArray);
   useGetAfterMount("/places");
   return (
-    <Hstack>
+    <Hstack className="w-screen h-screen bg-amber-800">
       <div className="grow">
         <MatJipContent placeArray={placeArray} />
       </div>

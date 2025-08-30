@@ -1,9 +1,9 @@
 @import "tailwindcss";
-@import "./shared/style/_theme.css";
+@import "./package/style/_theme.css";
 
 * {
-    box-sizing: border-box;
-    scrollbar-color: oklch(0.5 0 0) transparent;
+  box-sizing: border-box;
+  scrollbar-color: oklch(0.5 0 0) transparent;
 }
 
 :root {

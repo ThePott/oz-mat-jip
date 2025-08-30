@@ -1,4 +1,4 @@
-import Vstack from "./_VStack";
+import Vstack from "./_Vstack";
 
 type SidebarPosition = "LEFT" | "RIGHT";
 

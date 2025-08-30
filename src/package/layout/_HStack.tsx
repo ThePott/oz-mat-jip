@@ -1,13 +1,18 @@
+import type { DivProps } from "./htmlInterfaces";
+
 interface AdditionalHstackProps {
-    gap?: number
+  gap?: number;
 }
 
-type HstackProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & AdditionalHstackProps
+type HstackProps = DivProps & AdditionalHstackProps;
 
-const Hstack = ({gap=3, className, children, ...props}: HstackProps) => {
+const Hstack = ({ gap = 3, className, children, ...props }: HstackProps) => {
   return (
-    <div {...props} className={`gap-${gap} ${className} flex`}>{children}</div>
-  )
-}
+    <div {...props} className={`gap-${gap} ${className} flex`}>
+      {children}
+    </div>
+  );
+};
 
-export default Hstack
+export default Hstack;
+

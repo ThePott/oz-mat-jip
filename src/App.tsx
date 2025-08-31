@@ -1,7 +1,7 @@
 import MatJipContent from "./features/matJip/MatJipContent";
 import ExpandableSidebar from "./package/layout/_ExpandableSidebar";
 import FullScreen from "./package/layout/_FullScreen";
-import Hstack from "./package/layout/_Hstack";
+import { Hstack } from "./package/layout";
 import { useGetAfterMount } from "./shared/services/servicesHooks";
 import useBoundStore from "./shared/store";
 

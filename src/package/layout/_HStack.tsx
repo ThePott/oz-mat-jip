@@ -15,4 +15,3 @@ const Hstack = ({ gap = 3, className, children, ...props }: HstackProps) => {
 };
 
 export default Hstack;
-

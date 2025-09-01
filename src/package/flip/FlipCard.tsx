@@ -49,7 +49,9 @@ const FlipCardItem = ({
 };
 
 type FlipCardProps = DivProps;
-/** MUST SPECIFY WIDTH, HEIGHT */
+/** MUST SPECIFY WIDTH, HEIGHT
+ *
+ * FlipCard className is not inherited to Front nor Back*/
 const FlipCard = ({ className, children, ...props }: FlipCardProps) => {
   return (
     <FlipCardContexProvider>

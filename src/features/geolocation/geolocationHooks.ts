@@ -7,7 +7,8 @@ export const useGeolocation = () => {
   const sortPlaceArrayByCoords = useBoundStore(
     (state) => state.sortPlaceArrayByCoords,
   );
-  const coords = useBoundStore((state) => state.coords);
+  const myCoords = useBoundStore((state) => state.coords);
+  const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
 
   const handleLocationSuccess = (position: GeolocationPosition) => {
     const lat = position.coords.latitude;
@@ -15,17 +16,20 @@ export const useGeolocation = () => {
     const coords: Coords = { lat, lon };
     setCoords(coords);
   };
+
   const handleLocationFail = () => {
     console.log("---- fail");
   };
 
-  navigator.geolocation.getCurrentPosition(
-    handleLocationSuccess,
-    handleLocationFail,
-    { timeout: 5000, maximumAge: 1000 * 60 * 60 },
-  );
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      handleLocationSuccess,
+      handleLocationFail,
+      { timeout: 5000, maximumAge: 1000 * 60 * 60 },
+    );
+  }, []);
 
   useEffect(() => {
     sortPlaceArrayByCoords();
-  }, [coords]);
+  }, [myCoords, placeArrayResponse]);
 };

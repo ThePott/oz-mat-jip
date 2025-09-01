@@ -20,8 +20,12 @@ export interface ResourceState<T> {
   isLoading: boolean;
 }
 
+type SortedBy = "DISTANCE";
+
 export interface PlaceResponse {
   places: Place[];
+
+  sortedBy?: SortedBy;
 }
 
 export interface ApiState {

@@ -23,15 +23,20 @@ export const createDeviceSlice: StateCreator<
     if (!coords || !prevData) {
       return;
     }
-
+    if (prevData.sortedBy === "DISTANCE") {
+      debugger;
+      return;
+    }
     const data: PlaceResponse | null = prevData
       ? {
           ...prevData,
           places: sortPlaceArray(coords, prevData.places),
+          sortedBy: "DISTANCE",
         }
       : null;
-
+    debugger;
     const placeArrayResponse = { ...prevPlaceArrayResponse, data };
     set({ placeArrayResponse });
+    debugger;
   },
 });

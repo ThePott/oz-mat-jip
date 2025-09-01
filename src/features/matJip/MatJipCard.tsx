@@ -1,10 +1,11 @@
-import type { Place } from "../../shared/store/_apiInterfaces";
+import type { ExtendedPlace } from "../../shared/store/_apiInterfaces";
 import FlipCard from "../../package/flip/FlipCard";
 import { makeUrlPlaces } from "../../shared/services/apiUtils";
 import useBoundStore from "../../shared/store";
 import { makeDistanceString } from "../../shared/utils/distanceUtils";
+import { memo } from "react";
 
-const MatJipCardBack = ({ place }: { place: Place }) => {
+const MatJipCardBack = ({ place }: { place: ExtendedPlace }) => {
   const myCoords = useBoundStore((state) => state.coords);
   const { lat, lon } = place;
   const coords = { lat, lon };
@@ -22,7 +23,7 @@ const MatJipCardBack = ({ place }: { place: Place }) => {
   );
 };
 
-const MatJipCardFront = ({ place }: { place: Place }) => {
+const MatJipCardFront = ({ place }: { place: ExtendedPlace }) => {
   const imageSrc = `${makeUrlPlaces("/")}${place.image.src}`;
   return (
     <FlipCard.Front className="h-full w-full">
@@ -38,13 +39,13 @@ const MatJipCardFront = ({ place }: { place: Place }) => {
   );
 };
 
-const MatJipCard = ({ place }: { place: Place }) => {
+const MatJipCard = memo(({ place }: { place: ExtendedPlace }) => {
   return (
     <FlipCard className="h-[200px] overflow-hidden rounded-md border-1 border-dimdim hover:border-dimdim ">
       <MatJipCardBack place={place} />
       <MatJipCardFront place={place} />
     </FlipCard>
   );
-};
+});
 
 export default MatJipCard;

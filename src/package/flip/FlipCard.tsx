@@ -39,7 +39,7 @@ const FlipCardItem = ({
   const { isShowingBack } = useFlipCardContext();
   const baseFlipClassName = "transition backface-hidden absolute w-full h-full";
   const conditionalFlipClassName =
-    isShowingBack === isForBack ? "rotate-y-180" : "";
+    isShowingBack === isForBack ? "" : "rotate-y-180";
   const flipClassName = `${baseFlipClassName} ${conditionalFlipClassName}`;
   return (
     <div {...props} className={`${flipClassName} ${className}`}>

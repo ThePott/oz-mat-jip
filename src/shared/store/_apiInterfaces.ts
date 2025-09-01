@@ -1,4 +1,5 @@
 import type { Endpoint } from "../services/apiUtils";
+import type CustomError from "../services/customError";
 
 export interface Place {
   id: string;
@@ -16,15 +17,18 @@ export interface PlaceResponse {
 }
 export type ApiMethod = "GET" | "POST" | "DELETE";
 
+export interface ResourceState<T> {
+  data: T | null;
+  error: CustomError | null;
+  isLoading: boolean;
+}
+
 export interface ApiState {
-  placeArray: Place[];
-  setPlaceArray: (placeArray: Place[]) => void;
+  placeArrayResponse: ResourceState<Place[]>;
   apiRequest: (
     method: ApiMethod,
     endpoint: Endpoint,
     body: any,
     ...params: string[]
   ) => void;
-  isResponseEmpty: boolean;
-  setIsResponseEmpty: (isResponseEmpty: boolean) => void;
 }

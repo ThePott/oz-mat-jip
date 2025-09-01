@@ -6,27 +6,28 @@ import easyFetch from "../services/easyFetch";
 
 export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   set,
+  get,
 ) => ({
-  placeArray: [],
-  setPlaceArray(placeArray) {
-    set({ placeArray });
-  },
+  placeArrayResponse: { data: [], error: null, isLoading: true },
+
   async apiRequest(method, endpoint, body, ...params) {
+    const prevPlaceArray = get().placeArrayResponse;
+    set({ placeArrayResponse: { ...prevPlaceArray, isLoading: true } });
+
     const url = makeUrlPlaces(endpoint, ...params);
-    console.log({ url });
     const options = {
       method,
       body,
     };
-    const result = await easyFetch<PlaceResponse>(url, options);
+
+    const [result, error] = await easyFetch<PlaceResponse>(url, options);
     if (method === "GET") {
-      const placeArray = result.places;
-      const isResponseEmpty = placeArray.length === 0;
-      set({ placeArray, isResponseEmpty });
+      const placeArrayResponse = {
+        data: result?.places ?? [],
+        error: error,
+        isLoading: false,
+      };
+      set({ placeArrayResponse });
     }
-  },
-  isResponseEmpty: false,
-  setIsResponseEmpty(isResponseEmpty) {
-    set({ isResponseEmpty });
   },
 });

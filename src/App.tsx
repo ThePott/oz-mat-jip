@@ -8,18 +8,18 @@ import MatJipSkeleton from "./features/matJip/MatJipSkeleton";
 import MessageBox from "./shared/components/edgeCases/MesssageBox";
 
 const App = () => {
-  const placeArray = useBoundStore((state) => state.placeArray);
-  const isResponseEmpty = useBoundStore((state) => state.isResponseEmpty);
+  const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
   useGetAfterMount("/places");
 
-  const doShowSkeleton = placeArray.length === 0 && !isResponseEmpty;
   return (
     <FullScreen>
       <Hstack gap={0} className="w-full h-full overflow-hidden">
         <div className="grow">
-          {!doShowSkeleton && <MatJipContent placeArray={placeArray} />}
-          {doShowSkeleton && <MatJipSkeleton />}
-          {isResponseEmpty && (
+          {!placeArrayResponse.isLoading && (
+            <MatJipContent placeArray={placeArrayResponse.data ?? []} />
+          )}
+          {placeArrayResponse.isLoading && <MatJipSkeleton />}
+          {placeArrayResponse.isLoading && (
             <MessageBox outerClassName="p-3">
               맛집 정보가 하나도 없어요
             </MessageBox>

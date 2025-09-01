@@ -1,14 +1,27 @@
 import CustomError from "./customError";
 
-const easyFetch = async <T>(url: string, options?: RequestInit): Promise<T> => {
-  const response = await fetch(url, options);
-  const json = await response.json();
+/** T: type of response.json */
+const easyFetch = async <T>(
+  url: string,
+  options?: RequestInit,
+): Promise<[T | null, CustomError | null]> => {
+  let responseJson: T | null = null;
+  let customError: CustomError | null = null;
+  try {
+    const response = await fetch(url, options);
+    const json = await response.json();
 
-  if (!response.ok) {
-    throw new CustomError("API", json);
+    if (!response.ok) {
+      throw new CustomError("API", json);
+    }
+
+    responseJson = json;
+  } catch (error) {
+    console.error("---- API FAILED:", error);
+    customError = new CustomError("API", error);
   }
 
-  return json as T;
+  return [responseJson, customError];
 };
 
 export default easyFetch;

@@ -10,19 +10,26 @@ import MessageBox from "./shared/components/edgeCases/MesssageBox";
 const App = () => {
   const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
   useGetAfterMount("/places");
-
+  console.log({ placeArrayResponse });
   return (
     <FullScreen>
       <Hstack gap={0} className="w-full h-full overflow-hidden">
         <div className="grow">
-          {!placeArrayResponse.isLoading && (
-            <MatJipContent placeArray={placeArrayResponse.data ?? []} />
-          )}
           {placeArrayResponse.isLoading && <MatJipSkeleton />}
-          {placeArrayResponse.isLoading && (
+          {!placeArrayResponse.isLoading && placeArrayResponse.error && (
             <MessageBox outerClassName="p-3">
-              맛집 정보가 하나도 없어요
+              {placeArrayResponse.error.message}
             </MessageBox>
+          )}
+          {!placeArrayResponse.isLoading &&
+            placeArrayResponse.data &&
+            placeArrayResponse.data.places.length === 0 && (
+              <MessageBox outerClassName="p-3">
+                맛집 정보가 하나도 없어요
+              </MessageBox>
+            )}
+          {!placeArrayResponse.isLoading && !placeArrayResponse.error && (
+            <MatJipContent placeArray={placeArrayResponse.data?.places ?? []} />
           )}
         </div>
         <ExpandableSidebar widthInPixel={200} position="RIGHT">

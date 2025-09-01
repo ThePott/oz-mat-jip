@@ -12,9 +12,6 @@ export interface Place {
   lon: number;
   description: string;
 }
-export interface PlaceResponse {
-  places: Place[];
-}
 export type ApiMethod = "GET" | "POST" | "DELETE";
 
 export interface ResourceState<T> {
@@ -23,8 +20,12 @@ export interface ResourceState<T> {
   isLoading: boolean;
 }
 
+export interface PlaceResponse {
+  places: Place[];
+}
+
 export interface ApiState {
-  placeArrayResponse: ResourceState<Place[]>;
+  placeArrayResponse: ResourceState<PlaceResponse>;
   apiRequest: (
     method: ApiMethod,
     endpoint: Endpoint,

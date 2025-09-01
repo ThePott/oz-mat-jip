@@ -36,13 +36,16 @@ const FloatingSidebar = ({
   );
 };
 
-const ExpandableSidebar = ({ children, ...props }: ExpandableSidebarProps) => {
-  const { widthInPixel } = props;
+const ExpandableSidebar = ({
+  widthInPixel,
+  children,
+  ...props
+}: ExpandableSidebarProps) => {
   const widthStyle = {
     minWidth: `${widthInPixel}px`,
   };
   return (
-    <div style={widthStyle} className={`h-full min-w-[px] relative`}>
+    <div style={widthStyle} className={`h-full  relative`}>
       <FloatingSidebar {...props}>{children}</FloatingSidebar>
       <p>what</p>
     </div>

@@ -8,6 +8,7 @@ const easyFetch = async <T>(
   let responseJson: T | null = null;
   let customError: CustomError | null = null;
   try {
+    // throw new Error("yeah whatever");
     const response = await fetch(url, options);
     const json = await response.json();
 

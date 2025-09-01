@@ -9,14 +9,15 @@ const MatJipCardBack = ({ place }: { place: Place }) => {
   const { lat, lon } = place;
   const coords = { lat, lon };
 
-  const distanceImString = makeDistanceString(myCoords, coords);
+  const distanceImString =
+    myCoords && coords && makeDistanceString(myCoords, coords);
 
   return (
     <FlipCard.Back className="h-full w-full p-3 flex flex-col gap-3">
       <p className="text-center font-semibold">{place.title}</p>
       <p>{place.description}</p>
       <p>{JSON.stringify(coords)}</p>
-      <p>{distanceImString}</p>
+      {distanceImString && <p>{distanceImString}</p>}
     </FlipCard.Back>
   );
 };

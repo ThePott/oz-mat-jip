@@ -20,13 +20,16 @@ export const createDeviceSlice: StateCreator<
     const coords = state.coords;
 
     const prevData = prevPlaceArrayResponse.data;
+
     if (!coords || !prevData) {
       return;
     }
+
     if (prevData.sortedBy === "DISTANCE") {
       debugger;
       return;
     }
+
     const data: PlaceResponse | null = prevData
       ? {
           ...prevData,
@@ -34,9 +37,8 @@ export const createDeviceSlice: StateCreator<
           sortedBy: "DISTANCE",
         }
       : null;
-    debugger;
+
     const placeArrayResponse = { ...prevPlaceArrayResponse, data };
     set({ placeArrayResponse });
-    debugger;
   },
 });

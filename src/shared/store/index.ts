@@ -2,10 +2,19 @@ import { create } from "zustand";
 import type { BoundState } from "./boundState";
 import { createApiSlice } from "./_apiSlice";
 import { createDeviceSlice } from "./_deviceSlice";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-const useBoundStore = create<BoundState>()((...a) => ({
-  ...createApiSlice(...a),
-  ...createDeviceSlice(...a),
-}));
-
+const useBoundStore = create<BoundState>()(
+  persist(
+    (...a) => ({
+      ...createApiSlice(...a),
+      ...createDeviceSlice(...a),
+    }),
+    {
+      name: "mat-jip-storage",
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({ placeArrayResponse: state.placeArrayResponse }),
+    },
+  ),
+);
 export default useBoundStore;

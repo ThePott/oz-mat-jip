@@ -3,7 +3,6 @@ import type { BoundState } from "./boundState";
 import type { ApiState, PlaceResponse, ResourceState } from "./_apiInterfaces";
 import { makeUrlPlaces } from "../services/apiUtils";
 import easyFetch from "../services/easyFetch";
-import { sortPlaceArray } from "../utils/distanceUtils";
 
 export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   set,
@@ -13,8 +12,15 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
 
   async apiRequest(method, endpoint, body, ...params) {
     const state = get();
-    const coords = state.coords;
     const prevPlaceArrayResponse = state.placeArrayResponse;
+    if (
+      prevPlaceArrayResponse.data &&
+      prevPlaceArrayResponse.data.placeArrayResponse
+    ) {
+      debugger;
+      return;
+    }
+
     set({ placeArrayResponse: { ...prevPlaceArrayResponse, isLoading: true } });
 
     const url = makeUrlPlaces(endpoint, ...params);

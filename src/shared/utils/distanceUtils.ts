@@ -1,3 +1,4 @@
+import CustomError from "../services/customError";
 import type { Place } from "../store/_apiInterfaces";
 import type { Coords } from "../store/_deviceInterfaces";
 
@@ -21,6 +22,10 @@ export const calculateDistance = (coords1: Coords, coords2: Coords) => {
 };
 
 export const makeDistanceString = (coords1: Coords, coords2: Coords) => {
+  if (!coords1 || !coords2) {
+    debugger;
+    throw new CustomError("UI", { message: "NULL COORDS IS NOT VALID" });
+  }
   const distanceInMeter = Math.round(
     calculateDistance(coords1, coords2) * 1000,
   );
@@ -40,7 +45,10 @@ export const sortPlaceArray = (
   myCoords: Coords,
   placeArray: Place[],
 ): Place[] => {
-  console.log({ myCoords, placeArray });
+  if (!myCoords) {
+    debugger;
+    throw new CustomError("UI", { message: "NULL COORDS IS NOT VALID" });
+  }
 
   placeArray.sort(
     (a, b) => calculateDistance(myCoords, a) - calculateDistance(myCoords, b),

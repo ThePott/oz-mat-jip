@@ -20,7 +20,7 @@ export const makeUrlPlaces = (endpoint: Endpoint, ...params: string[]) => {
   }
 
   let url = `${baseUrl}${endpoint}`;
-  placeholderArray.map((placeholder, index) => {
+  placeholderArray.forEach((placeholder, index) => {
     url.replace(placeholder, params[index]);
   });
   return url;

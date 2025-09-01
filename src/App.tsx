@@ -4,15 +4,20 @@ import FullScreen from "./package/layout/_FullScreen";
 import { Hstack } from "./package/layout";
 import { useGetAfterMount } from "./shared/services/servicesHooks";
 import useBoundStore from "./shared/store";
+import MatJipSkeleton from "./features/matJip/MatJipSkeleton";
 
 const App = () => {
   const placeArray = useBoundStore((state) => state.placeArray);
+  const isResponseEmpty = useBoundStore((state) => state.isResponseEmpty);
   useGetAfterMount("/places");
+
+  const doShowSkeleton = placeArray.length === 0 && !isResponseEmpty;
   return (
     <FullScreen>
       <Hstack gap={0} className="w-full h-full overflow-hidden">
-        <div className="grow overflow-x-hidden overflow-y-scroll">
-          <MatJipContent placeArray={placeArray} />
+        <div className="grow">
+          {!doShowSkeleton && <MatJipContent placeArray={placeArray} />}
+          {doShowSkeleton && <MatJipSkeleton />}
         </div>
         <ExpandableSidebar widthInPixel={200} position="RIGHT">
           <p className="border-1 border-dimdim hover:border-dim">

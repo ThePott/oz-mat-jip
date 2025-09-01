@@ -21,7 +21,12 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
     const result = await easyFetch<PlaceResponse>(url, options);
     if (method === "GET") {
       const placeArray = result.places;
-      set({ placeArray });
+      const isResponseEmpty = placeArray.length === 0;
+      set({ placeArray, isResponseEmpty });
     }
+  },
+  isResponseEmpty: false,
+  setIsResponseEmpty(isResponseEmpty) {
+    set({ isResponseEmpty });
   },
 });

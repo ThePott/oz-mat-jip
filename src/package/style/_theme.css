@@ -27,4 +27,7 @@
   --color-dimdim: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 
   --spacing-card: 200px;
+
+  --skeleton-vivid: oklch(0 0 0 / 0.05), oklch(1 0 0 / 0.05);
+  --skeleton-muted: oklch(0 0 0 / 0.03), oklch(1 0 0 / 0.03);
 }

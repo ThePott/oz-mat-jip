@@ -1,4 +1,4 @@
-import "./skeletonBgAnimation.css";
+import "./skeleton.css";
 import type { FontVariant, SkeletonVariant } from "./skeletonInterfaces";
 import { makeSkeletonSizeStyle } from "./skeletonUtils";
 

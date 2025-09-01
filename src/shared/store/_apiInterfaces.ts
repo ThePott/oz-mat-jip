@@ -25,4 +25,6 @@ export interface ApiState {
     body: any,
     ...params: string[]
   ) => void;
+  isResponseEmpty: boolean;
+  setIsResponseEmpty: (isResponseEmpty: boolean) => void;
 }

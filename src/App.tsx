@@ -6,11 +6,14 @@ import { useGetAfterMount } from "./shared/services/servicesHooks";
 import useBoundStore from "./shared/store";
 import MatJipSkeleton from "./features/matJip/MatJipSkeleton";
 import MessageBox from "./shared/components/edgeCases/MesssageBox";
+import { useGeolocation } from "./features/geolocation/geolocationHooks";
 
 const App = () => {
   const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
+
   useGetAfterMount("/places");
-  console.log({ placeArrayResponse });
+  useGeolocation();
+
   return (
     <FullScreen>
       <Hstack gap={0} className="w-full h-full overflow-hidden">

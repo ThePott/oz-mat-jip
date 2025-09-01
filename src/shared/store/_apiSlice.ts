@@ -21,7 +21,6 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
     };
 
     const [result, error] = await easyFetch<PlaceResponse>(url, options);
-    console.log({ result, error });
     if (method === "GET") {
       const placeArrayResponse: ResourceState<PlaceResponse> = {
         data: result,

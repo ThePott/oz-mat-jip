@@ -1,5 +1,5 @@
 import CustomError from "../services/customError";
-import type { Place } from "../store/_apiInterfaces";
+import type { ExtendedPlace } from "../store/_apiInterfaces";
 import type { Coords } from "../store/_deviceInterfaces";
 
 const toRad = (value: number) => {
@@ -43,8 +43,8 @@ export const makeDistanceString = (coords1: Coords, coords2: Coords) => {
 
 export const sortPlaceArray = (
   myCoords: Coords,
-  placeArray: Place[],
-): Place[] => {
+  placeArray: ExtendedPlace[],
+): ExtendedPlace[] => {
   if (!myCoords) {
     debugger;
     throw new CustomError("UI", { message: "NULL COORDS IS NOT VALID" });

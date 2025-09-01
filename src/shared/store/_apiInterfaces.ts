@@ -1,7 +1,7 @@
 import type { Endpoint } from "../services/apiUtils";
 import type CustomError from "../services/customError";
 
-export interface Place {
+interface Place {
   id: string;
   title: string;
   image: {
@@ -12,6 +12,13 @@ export interface Place {
   lon: number;
   description: string;
 }
+
+interface WithFavorite {
+  isFavorite?: boolean;
+}
+
+export type ExtendedPlace = Place & WithFavorite;
+
 export type ApiMethod = "GET" | "POST" | "DELETE";
 
 export interface ResourceState<T> {
@@ -23,7 +30,7 @@ export interface ResourceState<T> {
 type SortedBy = "DISTANCE";
 
 export interface PlaceResponse {
-  places: Place[];
+  places: ExtendedPlace[];
 
   sortedBy?: SortedBy;
 }

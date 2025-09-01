@@ -1,7 +1,7 @@
-import type { Place } from "../../shared/store/_apiInterfaces";
+import type { ExtendedPlace } from "../../shared/store/_apiInterfaces";
 import MatJipCard from "./MatJipCard";
 
-const MatJipContent = ({ placeArray }: { placeArray: Place[] }) => {
+const MatJipContent = ({ placeArray }: { placeArray: ExtendedPlace[] }) => {
   return (
     <div className="h-full overflow-x-hidden overflow-y-scroll">
       <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 pt-3 pl-3">

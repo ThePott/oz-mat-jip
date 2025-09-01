@@ -1,21 +1,20 @@
-import { useState } from "react";
 import type { Place } from "../../shared/store/_apiInterfaces";
+import FlipCard from "../../package/flip/FlipCard";
+import { makeUrlPlaces } from "../../shared/services/apiUtils";
 
 const MatJipCard = ({ place }: { place: Place }) => {
-  const [isBack, setIsBack] = useState<boolean>(false);
-  const filpIsBackClassName = isBack ? "rotate-y-180" : "";
-  const filpBaseClassName = "transition ease-[cubic-bezier(.01,.81,.09,1.13)]";
-  const flipClassName = `${filpBaseClassName} ${filpIsBackClassName}`;
-
-  const handleClick = () => {
-    setIsBack((prev) => !prev);
-  };
+  const imageSrc = `${makeUrlPlaces("/")}${place.image.src}`;
   return (
-    <div className={flipClassName} onClick={handleClick}>
-      <div className="h-[200px] rounded-md border-1 border-dimdim hover:border-dim p-3 overflow-hidden">
-        {JSON.stringify(place)}
-      </div>
-    </div>
+    <FlipCard className="h-[200px] overflow-hidden rounded-md border-1 border-dimdim hover:border-dimdim ">
+      <FlipCard.Back>{JSON.stringify(place)}</FlipCard.Back>
+      <FlipCard.Front>
+        <img
+          src={imageSrc}
+          alt={place.image.alt}
+          className="h-full w-full object-cover"
+        />
+      </FlipCard.Front>
+    </FlipCard>
   );
 };
 

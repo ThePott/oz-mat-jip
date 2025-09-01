@@ -1,4 +1,4 @@
-import Vstack from "./_Vstack";
+import { Vstack } from ".";
 
 type SidebarPosition = "LEFT" | "RIGHT";
 
@@ -29,7 +29,6 @@ const FloatingSidebar = ({
   return (
     <div
       {...props}
-      // style={widthStyle}
       className={`bg-red-400 ${positionClassName} ${widthClassName} absolute shrink-0 ${className}`}
     >
       <Vstack gap={gap}>{children}</Vstack>
@@ -43,10 +42,7 @@ const ExpandableSidebar = ({ children, ...props }: ExpandableSidebarProps) => {
     minWidth: `${widthInPixel}px`,
   };
   return (
-    <div
-      style={widthStyle}
-      className={`h-full min-w-[px] relative bg-amber-100`}
-    >
+    <div style={widthStyle} className={`h-full min-w-[px] relative`}>
       <FloatingSidebar {...props}>{children}</FloatingSidebar>
       <p>what</p>
     </div>

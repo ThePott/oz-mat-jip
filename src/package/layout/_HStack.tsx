@@ -6,12 +6,15 @@ interface AdditionalHstackProps {
 
 type HstackProps = DivProps & AdditionalHstackProps;
 
-const Hstack = ({ gap = 3, className, children, ...props }: HstackProps) => {
+export const Hstack = ({
+  gap = 3,
+  className,
+  children,
+  ...props
+}: HstackProps) => {
   return (
     <div {...props} className={`gap-${gap} ${className} flex`}>
       {children}
     </div>
   );
 };
-
-export default Hstack;

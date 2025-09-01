@@ -5,7 +5,11 @@ const extractPlaceholders = (endpoint: string): string[] => {
   return matches ?? [];
 };
 
-export type Endpoint = "/places" | "/users/places" | "/users/places/{placeId}";
+export type Endpoint =
+  | "/"
+  | "/places"
+  | "/users/places"
+  | "/users/places/{placeId}";
 
 export const makeUrlPlaces = (endpoint: Endpoint, ...params: string[]) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;

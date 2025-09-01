@@ -24,7 +24,7 @@ const BaseVstack = ({
   );
 };
 
-const Vstack = ({ center, children, ...props }: VstackProps) => {
+export const Vstack = ({ center, children, ...props }: VstackProps) => {
   if (!center) {
     return <BaseVstack {...props}>{children}</BaseVstack>;
   }
@@ -35,5 +35,3 @@ const Vstack = ({ center, children, ...props }: VstackProps) => {
     </CenterInRow>
   );
 };
-
-export default Vstack;

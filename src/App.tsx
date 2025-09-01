@@ -10,7 +10,7 @@ const App = () => {
   useGetAfterMount("/places");
   return (
     <FullScreen>
-      <Hstack gap={0} className="w-full h-full bg-amber-800 overflow-hidden">
+      <Hstack gap={0} className="w-full h-full overflow-hidden">
         <div className="grow overflow-x-hidden overflow-y-scroll">
           <MatJipContent placeArray={placeArray} />
         </div>

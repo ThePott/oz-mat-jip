@@ -1,10 +1,9 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import type { DivProps } from "../layout/htmlInterfaces";
 
-type FlipCardContextProps = Required<
-  Pick<AdditionalFlipCardProps, "isShowingBack">
->;
-
+interface FlipCardContextProps {
+  isShowingBack: boolean;
+}
 const FlipCardContext = createContext<FlipCardContextProps>({
   isShowingBack: false,
 });
@@ -17,17 +16,11 @@ const useFlipCardContext = () => {
   return context;
 };
 
-type FlipCardContextProviderProps = FlipCardContextProps & {
-  children: ReactNode;
-};
-
-const FlipCardContexProvider = ({
-  children,
-  ...props
-}: FlipCardContextProviderProps) => {
+const FlipCardContexProvider = ({ children }: { children: ReactNode }) => {
+  const [isShowingBack, setIsShowingBack] = useState<boolean>(false);
   return (
-    <FlipCardContext.Provider value={props}>
-      {children}
+    <FlipCardContext.Provider value={{ isShowingBack }}>
+      <div onClick={() => setIsShowingBack((prev) => !prev)}>{children}</div>
     </FlipCardContext.Provider>
   );
 };
@@ -44,7 +37,7 @@ const FlipCardItem = ({
   ...props
 }: FlipCardItemProps) => {
   const { isShowingBack } = useFlipCardContext();
-  const baseFlipClassName = "backface-visibility";
+  const baseFlipClassName = "transition backface-hidden absolute w-full h-full";
   const conditionalFlipClassName =
     isShowingBack === isForBack ? "rotate-y-180" : "";
   const flipClassName = `${baseFlipClassName} ${conditionalFlipClassName}`;
@@ -55,18 +48,14 @@ const FlipCardItem = ({
   );
 };
 
-interface AdditionalFlipCardProps {
-  isShowingBack?: boolean;
-}
-type FlipCardProps = DivProps & AdditionalFlipCardProps;
-const FlipCard = ({
-  isShowingBack = false,
-  children,
-  ...props
-}: FlipCardProps) => {
+type FlipCardProps = DivProps;
+/** MUST SPECIFY WIDTH, HEIGHT */
+const FlipCard = ({ className, children, ...props }: FlipCardProps) => {
   return (
-    <FlipCardContexProvider isShowingBack={isShowingBack}>
-      <div {...props}>{children}</div>;
+    <FlipCardContexProvider>
+      <div {...props} className={`relative ${className}`}>
+        {children}
+      </div>
     </FlipCardContexProvider>
   );
 };

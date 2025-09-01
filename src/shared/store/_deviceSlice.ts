@@ -26,7 +26,6 @@ export const createDeviceSlice: StateCreator<
     }
 
     if (prevData.sortedBy === "DISTANCE") {
-      debugger;
       return;
     }
 

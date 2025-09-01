@@ -13,11 +13,8 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   async apiRequest(method, endpoint, body, ...params) {
     const state = get();
     const prevPlaceArrayResponse = state.placeArrayResponse;
-    if (
-      prevPlaceArrayResponse.data &&
-      prevPlaceArrayResponse.data.placeArrayResponse
-    ) {
-      debugger;
+
+    if (prevPlaceArrayResponse.data && prevPlaceArrayResponse.data.places) {
       return;
     }
 

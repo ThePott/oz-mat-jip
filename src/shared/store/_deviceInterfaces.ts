@@ -6,4 +6,6 @@ export interface Coords {
 export interface DeviceState {
   coords: Coords | null;
   setCoords: (coords: Coords) => void;
+
+  sortPlaceArrayByCoords: () => void;
 }

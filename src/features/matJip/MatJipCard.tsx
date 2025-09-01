@@ -1,15 +1,22 @@
 import type { Place } from "../../shared/store/_apiInterfaces";
 import FlipCard from "../../package/flip/FlipCard";
 import { makeUrlPlaces } from "../../shared/services/apiUtils";
+import useBoundStore from "../../shared/store";
+import { makeDistanceString } from "../../shared/utils/distanceUtils";
 
 const MatJipCardBack = ({ place }: { place: Place }) => {
+  const myCoords = useBoundStore((state) => state.coords);
   const { lat, lon } = place;
   const coords = { lat, lon };
+
+  const distanceImString = makeDistanceString(myCoords, coords);
+
   return (
     <FlipCard.Back className="h-full w-full p-3 flex flex-col gap-3">
       <p className="text-center font-semibold">{place.title}</p>
       <p>{place.description}</p>
       <p>{JSON.stringify(coords)}</p>
+      <p>{distanceImString}</p>
     </FlipCard.Back>
   );
 };

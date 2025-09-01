@@ -17,7 +17,7 @@ const App = () => {
   return (
     <FullScreen>
       <Hstack gap={0} className="w-full h-full overflow-hidden">
-        <div className="grow">
+        <div className="grow h-full overflow-hidden">
           {placeArrayResponse.isLoading && <MatJipSkeleton />}
           {!placeArrayResponse.isLoading && placeArrayResponse.error && (
             <MessageBox outerClassName="p-3">

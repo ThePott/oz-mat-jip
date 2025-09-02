@@ -1,6 +1,7 @@
 import { useState, type MouseEventHandler } from "react";
 import { Vstack } from ".";
 import type { DivProps } from "./htmlInterfaces";
+import CustomButton from "../button/CustomButton";
 
 type SidebarPosition = "LEFT" | "RIGHT";
 
@@ -48,7 +49,7 @@ const ExpandableSidebar = ({
   const borderPositionClassName =
     position === "LEFT" ? "border-r-1" : "border-l-1";
 
-  const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     setDoExpand((prev) => !prev);
   };
@@ -58,9 +59,12 @@ const ExpandableSidebar = ({
       style={widthStyle}
       className={`${borderPositionClassName} transition h-full overflow-x-hidden overflow-y-scroll relative border-dim`}
     >
-      <div onClick={handleClick}>some button</div>
+      <div className="w-full flex justify-end pt-3">
+        <CustomButton onClick={handleClick}>
+          {doExpand ? "닫기" : "열기"}
+        </CustomButton>
+      </div>
       <FloatingSidebar {...props}>{children}</FloatingSidebar>
-      <p>what</p>
     </div>
   );
 };

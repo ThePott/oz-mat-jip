@@ -33,6 +33,7 @@ export type IdToIsFavorte = Record<string, true>;
 
 export interface ApiState {
   placeArrayResponse: ResourceState<PlaceResponse>;
+  favoritePlaceArrayResponse: ResourceState<PlaceResponse>;
   idToIsFavorite: IdToIsFavorte;
   favoritePlaceArray: Place[];
 

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import useBoundStore from "../store";
 import type { Endpoint } from "./apiUtils";
 
-export const useGetAfterMount = (endpoint: Endpoint) => {
+export const useGetAfterMount = (...endpointArray: Endpoint[]) => {
   const apiRequest = useBoundStore((state) => state.apiRequest);
   useEffect(() => {
-    apiRequest("GET", endpoint, undefined);
+    endpointArray.forEach((endpoint) => apiRequest("GET", endpoint, undefined));
   }, []);
 };

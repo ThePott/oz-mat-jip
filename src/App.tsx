@@ -14,7 +14,7 @@ const App = () => {
   const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
   const favoritePlaceArray = useBoundStore((state) => state.favoritePlaceArray);
 
-  useGetAfterMount("/places");
+  useGetAfterMount("/places", "/users/places");
   useGeolocation();
   useUpdateFavoriteArray();
   console.log("---- app re rendered");

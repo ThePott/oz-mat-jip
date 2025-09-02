@@ -14,9 +14,9 @@ const useBoundStore = create<BoundState>()(
       name: "mat-jip-storage",
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
-        placeArrayResponse: state.placeArrayResponse,
-        idToIsFavorite: state.idToIsFavorite,
-        favoritePlaceArray: state.favoritePlaceArray,
+        // placeArrayResponse: state.placeArrayResponse,
+        // idToIsFavorite: state.idToIsFavorite,
+        // favoritePlaceArray: state.favoritePlaceArray,
       }),
     },
   ),

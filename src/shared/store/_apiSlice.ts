@@ -27,6 +27,7 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   get,
 ) => ({
   placeArrayResponse: { data: null, error: null, isLoading: true },
+  favoritePlaceArrayResponse: { data: null, error: null, isLoading: true },
   idToIsFavorite: {},
   favoritePlaceArray: [],
 
@@ -42,11 +43,11 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
       return;
     }
 
-    if (method === "GET") {
-      set({
-        placeArrayResponse: { ...prevPlaceArrayResponse, isLoading: true },
-      });
-    }
+    // if (method === "GET") {
+    //   set({
+    //     placeArrayResponse: { ...prevPlaceArrayResponse, isLoading: true },
+    //   });
+    // }
 
     const url = makeUrlPlaces(endpoint, ...params);
     console.log({ params });
@@ -75,6 +76,12 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
         set({ placeArrayResponse });
         break;
       case "/users/places":
+        const favoritePlaceArrayResponse: ResourceState<PlaceResponse> = {
+          data: result,
+          error: error,
+          isLoading: false,
+        };
+        set({ favoritePlaceArrayResponse });
         break;
       default:
         break;

@@ -4,6 +4,7 @@ import { makeUrlPlaces } from "../../shared/services/apiUtils";
 import useBoundStore from "../../shared/store";
 import { makeDistanceString } from "../../shared/utils/distanceUtils";
 import { memo } from "react";
+import HeartButton from "../../shared/components/buttons/heart/HeartButton";
 
 const MatJipCardBack = ({ place }: { place: ExtendedPlace }) => {
   const myCoords = useBoundStore((state) => state.coords);
@@ -44,6 +45,7 @@ const MatJipCard = memo(({ place }: { place: ExtendedPlace }) => {
     <FlipCard className="h-[200px] overflow-hidden rounded-md border-1 border-dimdim hover:border-dimdim ">
       <MatJipCardBack place={place} />
       <MatJipCardFront place={place} />
+      <HeartButton isOn={true} toggler={() => console.log("---- clicked")} />
     </FlipCard>
   );
 });

@@ -33,13 +33,23 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
 
     const [result, error] = await easyFetch<PlaceResponse>(url, options);
 
-    if (method === "GET") {
-      const placeArrayResponse: ResourceState<PlaceResponse> = {
-        data: result,
-        error: error,
-        isLoading: false,
-      };
-      set({ placeArrayResponse });
+    if (method !== "GET") {
+      return;
+    }
+
+    switch (endpoint) {
+      case "/places":
+        const placeArrayResponse: ResourceState<PlaceResponse> = {
+          data: result,
+          error: error,
+          isLoading: false,
+        };
+        set({ placeArrayResponse });
+        break;
+      case "/users/places":
+        break;
+      default:
+        break;
     }
   },
 

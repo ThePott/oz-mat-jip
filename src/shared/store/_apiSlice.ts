@@ -15,16 +15,27 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
     const state = get();
     const prevPlaceArrayResponse = state.placeArrayResponse;
 
-    if (prevPlaceArrayResponse.data && prevPlaceArrayResponse.data.places) {
+    if (
+      method === "GET" &&
+      prevPlaceArrayResponse.data &&
+      prevPlaceArrayResponse.data.places
+    ) {
       return;
     }
 
-    set({ placeArrayResponse: { ...prevPlaceArrayResponse, isLoading: true } });
+    if (method === "GET") {
+      set({
+        placeArrayResponse: { ...prevPlaceArrayResponse, isLoading: true },
+      });
+    }
 
     const url = makeUrlPlaces(endpoint, ...params);
     const options = {
       method,
-      body,
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
     const [result, error] = await easyFetch<PlaceResponse>(url, options);

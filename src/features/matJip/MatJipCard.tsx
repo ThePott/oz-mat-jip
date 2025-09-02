@@ -43,7 +43,12 @@ const MatJipCardFront = ({ place }: { place: Place }) => {
 const MatJipCard = memo(({ place }: { place: Place }) => {
   const toggleIsFavorite = useBoundStore((state) => state.toggleIsFavorite);
   const idToIsFavorite = useBoundStore((state) => state.idToIsFavorite);
+  const apiRequest = useBoundStore((state) => state.apiRequest);
   const handleClick = () => {
+    if (!idToIsFavorite[place.id]) {
+      const body = { place: place };
+      apiRequest("POST", "/users/places", body);
+    }
     toggleIsFavorite(place);
   };
 

@@ -1,35 +1,32 @@
+import { useState, type MouseEventHandler } from "react";
 import { Vstack } from ".";
+import type { DivProps } from "./htmlInterfaces";
 
 type SidebarPosition = "LEFT" | "RIGHT";
 
 interface AdditionalProps {
-  doExpand?: boolean;
+  // doExpand?: boolean;
   position: SidebarPosition;
   gap?: number;
   widthInPixel: number;
 }
 
-type BaseProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
-
-type ExpandableSidebarProps = BaseProps & AdditionalProps;
+type ExpandableSidebarProps = DivProps & AdditionalProps;
 
 const FloatingSidebar = ({
-  doExpand,
+  // doExpand,
   className,
   gap,
   position,
   children,
   ...props
-}: Omit<ExpandableSidebarProps, "widthInPixel">) => {
+}: Omit<ExpandableSidebarProps, "widthInPixel" | "doExpand">) => {
   const positionClassName = position === "LEFT" ? "left-0" : "right-0";
-  const widthClassName = doExpand ? "w-screen" : "w-full";
+  // const widthClassName = doExpand ? "w-screen" : "w-full";
   return (
     <div
       {...props}
-      className={`${className} ${positionClassName} ${widthClassName} absolute shrink-0`}
+      className={`${className} ${positionClassName} absolute shrink-0 w-full`}
     >
       <Vstack gap={gap}>{children}</Vstack>
     </div>
@@ -41,19 +38,27 @@ const ExpandableSidebar = ({
   children,
   ...props
 }: ExpandableSidebarProps) => {
+  const [doExpand, setDoExpand] = useState<boolean>(false);
   const { position } = props;
   const widthStyle = {
-    minWidth: `${widthInPixel}px`,
+    minWidth: doExpand ? "500px" : `${widthInPixel}px`,
+    transitionProperty: "min-width",
   };
 
   const borderPositionClassName =
     position === "LEFT" ? "border-r-1" : "border-l-1";
 
+  const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
+    event.stopPropagation();
+    setDoExpand((prev) => !prev);
+  };
+
   return (
     <div
       style={widthStyle}
-      className={`${borderPositionClassName} h-full overflow-x-hidden overflow-y-scroll relative border-dim`}
+      className={`${borderPositionClassName} transition h-full overflow-x-hidden overflow-y-scroll relative border-dim`}
     >
+      <div onClick={handleClick}>some button</div>
       <FloatingSidebar {...props}>{children}</FloatingSidebar>
       <p>what</p>
     </div>

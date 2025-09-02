@@ -43,6 +43,7 @@ const App = () => {
           widthInPixel={200}
           position="RIGHT"
           className="pt-3 pl-3"
+          doExpand
         >
           {favoritePlaceArray.map((place) => (
             <MatJipCard place={place} />

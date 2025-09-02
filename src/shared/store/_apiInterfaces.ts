@@ -1,7 +1,7 @@
 import type { Endpoint } from "../services/apiUtils";
 import type CustomError from "../services/customError";
 
-interface Place {
+export interface Place {
   id: string;
   title: string;
   image: {
@@ -12,12 +12,6 @@ interface Place {
   lon: number;
   description: string;
 }
-
-interface WithFavorite {
-  isFavorite?: boolean;
-}
-
-export type ExtendedPlace = Place & WithFavorite;
 
 export type ApiMethod = "GET" | "POST" | "DELETE";
 
@@ -30,18 +24,22 @@ export interface ResourceState<T> {
 type SortedBy = "DISTANCE";
 
 export interface PlaceResponse {
-  places: ExtendedPlace[];
+  places: Place[];
 
   sortedBy?: SortedBy;
 }
 
+export type IdToIsFavorte = Record<string, boolean>;
+
 export interface ApiState {
   placeArrayResponse: ResourceState<PlaceResponse>;
+  idToIsFavorite: IdToIsFavorte;
+
   apiRequest: (
     method: ApiMethod,
     endpoint: Endpoint,
     body: any,
     ...params: string[]
   ) => void;
-  toggleIsFavorite: (place: ExtendedPlace) => void;
+  toggleIsFavorite: (place: Place) => void;
 }

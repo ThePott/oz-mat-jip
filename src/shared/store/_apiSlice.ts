@@ -1,11 +1,6 @@
 import type { StateCreator } from "zustand";
 import type { BoundState } from "./boundState";
-import type {
-  ApiState,
-  ExtendedPlace,
-  PlaceResponse,
-  ResourceState,
-} from "./_apiInterfaces";
+import type { ApiState, PlaceResponse, ResourceState } from "./_apiInterfaces";
 import { makeUrlPlaces } from "../services/apiUtils";
 import easyFetch from "../services/easyFetch";
 
@@ -14,6 +9,7 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   get,
 ) => ({
   placeArrayResponse: { data: null, error: null, isLoading: true },
+  idToIsFavorite: {},
 
   async apiRequest(method, endpoint, body, ...params) {
     const state = get();
@@ -54,23 +50,9 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   },
 
   toggleIsFavorite(place) {
-    const toggledPlace: ExtendedPlace = {
-      ...place,
-      isFavorite: !place.isFavorite,
-    };
-
     const state = get();
-    const placeArrayResponse = { ...state.placeArrayResponse };
-    if (!placeArrayResponse.data) {
-      debugger;
-      return;
-    }
-
-    const placeArray = placeArrayResponse.data.places.map((el) =>
-      el.id === toggledPlace.id ? toggledPlace : el,
-    );
-
-    placeArrayResponse.data.places = placeArray;
-    set({ placeArrayResponse });
+    const idToIsFavorite = { ...state.idToIsFavorite };
+    idToIsFavorite[place.id] = !idToIsFavorite[place.id];
+    set({ idToIsFavorite });
   },
 });

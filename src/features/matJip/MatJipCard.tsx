@@ -1,4 +1,4 @@
-import type { ExtendedPlace } from "../../shared/store/_apiInterfaces";
+import type { Place } from "../../shared/store/_apiInterfaces";
 import FlipCard from "../../package/flip/FlipCard";
 import { makeUrlPlaces } from "../../shared/services/apiUtils";
 import useBoundStore from "../../shared/store";
@@ -6,7 +6,7 @@ import { makeDistanceString } from "../../shared/utils/distanceUtils";
 import { memo } from "react";
 import HeartButton from "../../shared/components/buttons/heart/HeartButton";
 
-const MatJipCardBack = ({ place }: { place: ExtendedPlace }) => {
+const MatJipCardBack = ({ place }: { place: Place }) => {
   const myCoords = useBoundStore((state) => state.coords);
   const { lat, lon } = place;
   const coords = { lat, lon };
@@ -24,7 +24,7 @@ const MatJipCardBack = ({ place }: { place: ExtendedPlace }) => {
   );
 };
 
-const MatJipCardFront = ({ place }: { place: ExtendedPlace }) => {
+const MatJipCardFront = ({ place }: { place: Place }) => {
   const imageSrc = `${makeUrlPlaces("/")}${place.image.src}`;
   return (
     <FlipCard.Front className="h-full w-full">
@@ -40,8 +40,9 @@ const MatJipCardFront = ({ place }: { place: ExtendedPlace }) => {
   );
 };
 
-const MatJipCard = memo(({ place }: { place: ExtendedPlace }) => {
+const MatJipCard = memo(({ place }: { place: Place }) => {
   const toggleIsFavorite = useBoundStore((state) => state.toggleIsFavorite);
+  const idToIsFavorite = useBoundStore((state) => state.idToIsFavorite);
   const handleClick = () => {
     toggleIsFavorite(place);
   };
@@ -50,7 +51,10 @@ const MatJipCard = memo(({ place }: { place: ExtendedPlace }) => {
     <FlipCard className="h-[200px] overflow-hidden rounded-md border-1 border-dimdim hover:border-dimdim ">
       <MatJipCardBack place={place} />
       <MatJipCardFront place={place} />
-      <HeartButton isOn={Boolean(place.isFavorite)} toggler={handleClick} />
+      <HeartButton
+        isOn={Boolean(idToIsFavorite[place.id])}
+        toggler={handleClick}
+      />
     </FlipCard>
   );
 });

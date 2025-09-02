@@ -1,72 +1,54 @@
-import { useState, type MouseEventHandler } from "react";
-import { Vstack } from ".";
 import type { DivProps } from "./htmlInterfaces";
-import CustomButton from "../button/CustomButton";
 
-type SidebarPosition = "LEFT" | "RIGHT";
+type ExpandTo = "LEFT" | "RIGHT";
 
 interface AdditionalProps {
-  // doExpand?: boolean;
-  position: SidebarPosition;
-  gap?: number;
+  doExpand?: boolean;
+  expandTo: ExpandTo;
   widthInPixel: number;
 }
 
-type ExpandableSidebarProps = DivProps & AdditionalProps;
+type ExpandableProps = DivProps & AdditionalProps;
 
 const FloatingSidebar = ({
-  // doExpand,
+  doExpand,
   className,
-  gap,
-  position,
-  children,
-  ...props
-}: Omit<ExpandableSidebarProps, "widthInPixel" | "doExpand">) => {
-  const positionClassName = position === "LEFT" ? "left-0" : "right-0";
-  // const widthClassName = doExpand ? "w-screen" : "w-full";
-  return (
-    <div
-      {...props}
-      className={`${className} ${positionClassName} absolute shrink-0 w-full`}
-    >
-      <Vstack gap={gap}>{children}</Vstack>
-    </div>
-  );
-};
-
-const ExpandableSidebar = ({
+  expandTo,
   widthInPixel,
   children,
   ...props
-}: ExpandableSidebarProps) => {
-  const [doExpand, setDoExpand] = useState<boolean>(false);
-  const { position } = props;
-  const widthStyle = {
-    minWidth: doExpand ? "500px" : `${widthInPixel}px`,
-    transitionProperty: "min-width",
-  };
+}: ExpandableProps) => {
+  const positionClassName = expandTo === "LEFT" ? "right-0" : "left -0";
 
   const borderPositionClassName =
-    position === "LEFT" ? "border-r-1" : "border-l-1";
-
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.stopPropagation();
-    setDoExpand((prev) => !prev);
+    expandTo === "LEFT" ? "border-l-1" : "border-r-1";
+  const widthStyle = {
+    width: doExpand ? "500px" : `${widthInPixel}px`,
+    transitionProperty: "width",
   };
 
   return (
     <div
       style={widthStyle}
-      className={`${borderPositionClassName} transition h-full overflow-x-hidden overflow-y-scroll relative border-dim`}
+      {...props}
+      className={`${className} ${positionClassName} ${borderPositionClassName} border-dim h-full transition absolute shrink-0 overflow-y-scroll z-20 bg-bg`}
     >
-      <div className="w-full flex justify-end pt-3">
-        <CustomButton onClick={handleClick}>
-          {doExpand ? "닫기" : "열기"}
-        </CustomButton>
-      </div>
+      {children}
+    </div>
+  );
+};
+
+const Expandable = ({ children, ...props }: ExpandableProps) => {
+  const { widthInPixel } = props;
+  const widthStyle = {
+    minWidth: `${widthInPixel}px`,
+  };
+
+  return (
+    <div style={widthStyle} className={`h-full relative`}>
       <FloatingSidebar {...props}>{children}</FloatingSidebar>
     </div>
   );
 };
 
-export default ExpandableSidebar;
+export default Expandable;

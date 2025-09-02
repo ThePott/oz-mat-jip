@@ -43,12 +43,6 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
       return;
     }
 
-    // if (method === "GET") {
-    //   set({
-    //     placeArrayResponse: { ...prevPlaceArrayResponse, isLoading: true },
-    //   });
-    // }
-
     const url = makeUrlPlaces(endpoint, ...params);
     console.log({ params });
 

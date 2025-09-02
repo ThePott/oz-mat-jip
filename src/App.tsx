@@ -1,7 +1,7 @@
 import MatJipContent from "./features/matJip/MatJipContent";
-import ExpandableSidebar from "./package/layout/_ExpandableSidebar";
+import Expandable from "./package/layout/_ExpandableSidebar";
 import FullScreen from "./package/layout/_FullScreen";
-import { Hstack } from "./package/layout";
+import { Hstack, Vstack } from "./package/layout";
 import { useGetAfterMount } from "./shared/services/servicesHooks";
 import useBoundStore from "./shared/store";
 import MatJipSkeleton from "./features/matJip/MatJipSkeleton";
@@ -9,8 +9,11 @@ import MessageBox from "./shared/components/edgeCases/MesssageBox";
 import { useGeolocation } from "./features/geolocation/geolocationHooks";
 import MatJipCard from "./features/matJip/MatJipCard";
 import { useUpdateFavoriteArray } from "./features/matJip/useUpdateFavoriteArray";
+import { useState } from "react";
+import CustomButton from "./package/button/CustomButton";
 
 const App = () => {
+  const [doExpand, setDoExpand] = useState<boolean>(false);
   const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
   const favoritePlaceArray = useBoundStore((state) => state.favoritePlaceArray);
 
@@ -39,16 +42,21 @@ const App = () => {
             <MatJipContent placeArray={placeArrayResponse.data?.places ?? []} />
           )}
         </div>
-        <ExpandableSidebar
+        <Expandable
           widthInPixel={200}
-          position="RIGHT"
+          expandTo="LEFT"
+          doExpand={doExpand}
           className="pt-3 pl-3"
-          doExpand
         >
-          {favoritePlaceArray.map((place) => (
-            <MatJipCard place={place} />
-          ))}
-        </ExpandableSidebar>
+          <Vstack>
+            <CustomButton onClick={() => setDoExpand((prev) => !prev)}>
+              여닫기
+            </CustomButton>
+            {favoritePlaceArray.map((place) => (
+              <MatJipCard place={place} />
+            ))}
+          </Vstack>
+        </Expandable>
       </Hstack>
     </FullScreen>
   );

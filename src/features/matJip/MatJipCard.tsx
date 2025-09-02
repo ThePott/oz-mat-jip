@@ -41,11 +41,16 @@ const MatJipCardFront = ({ place }: { place: ExtendedPlace }) => {
 };
 
 const MatJipCard = memo(({ place }: { place: ExtendedPlace }) => {
+  const toggleIsFavorite = useBoundStore((state) => state.toggleIsFavorite);
+  const handleClick = () => {
+    toggleIsFavorite(place);
+  };
+
   return (
     <FlipCard className="h-[200px] overflow-hidden rounded-md border-1 border-dimdim hover:border-dimdim ">
       <MatJipCardBack place={place} />
       <MatJipCardFront place={place} />
-      <HeartButton isOn={true} toggler={() => console.log("---- clicked")} />
+      <HeartButton isOn={Boolean(place.isFavorite)} toggler={handleClick} />
     </FlipCard>
   );
 });

@@ -1,6 +1,11 @@
 import type { StateCreator } from "zustand";
 import type { BoundState } from "./boundState";
-import type { ApiState, PlaceResponse, ResourceState } from "./_apiInterfaces";
+import type {
+  ApiState,
+  ExtendedPlace,
+  PlaceResponse,
+  ResourceState,
+} from "./_apiInterfaces";
 import { makeUrlPlaces } from "../services/apiUtils";
 import easyFetch from "../services/easyFetch";
 
@@ -36,5 +41,26 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
       };
       set({ placeArrayResponse });
     }
+  },
+
+  toggleIsFavorite(place) {
+    const toggledPlace: ExtendedPlace = {
+      ...place,
+      isFavorite: !place.isFavorite,
+    };
+
+    const state = get();
+    const placeArrayResponse = { ...state.placeArrayResponse };
+    if (!placeArrayResponse.data) {
+      debugger;
+      return;
+    }
+
+    const placeArray = placeArrayResponse.data.places.map((el) =>
+      el.id === toggledPlace.id ? toggledPlace : el,
+    );
+
+    placeArrayResponse.data.places = placeArray;
+    set({ placeArrayResponse });
   },
 });

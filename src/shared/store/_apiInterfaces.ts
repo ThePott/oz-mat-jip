@@ -43,4 +43,5 @@ export interface ApiState {
     body: any,
     ...params: string[]
   ) => void;
+  toggleIsFavorite: (place: ExtendedPlace) => void;
 }

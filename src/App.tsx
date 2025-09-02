@@ -13,7 +13,7 @@ const App = () => {
 
   useGetAfterMount("/places");
   useGeolocation();
-
+  console.log("---- app re rendered");
   return (
     <FullScreen>
       <Hstack gap={0} className="w-full h-full overflow-hidden">

@@ -1,8 +1,26 @@
 import type { StateCreator } from "zustand";
 import type { BoundState } from "./boundState";
-import type { ApiState, PlaceResponse, ResourceState } from "./_apiInterfaces";
+import type {
+  ApiState,
+  IdToIsFavorte,
+  Place,
+  PlaceResponse,
+  ResourceState,
+} from "./_apiInterfaces";
 import { makeUrlPlaces } from "../services/apiUtils";
 import easyFetch from "../services/easyFetch";
+
+const filterFavoritePlaceArray = (
+  idToIsFavorite: IdToIsFavorte,
+  placeArray: Place[],
+) => {
+  const favoriteIdArray = Object.keys(idToIsFavorite);
+
+  const filteredArray = placeArray.filter((place) =>
+    favoriteIdArray.includes(place.id),
+  );
+  return filteredArray;
+};
 
 export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
   set,
@@ -10,6 +28,7 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
 ) => ({
   placeArrayResponse: { data: null, error: null, isLoading: true },
   idToIsFavorite: {},
+  favoritePlaceArray: [],
 
   async apiRequest(method, endpoint, body, ...params) {
     const state = get();
@@ -31,7 +50,7 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
 
     const url = makeUrlPlaces(endpoint, ...params);
     console.log({ params });
-    debugger;
+
     const options = {
       method,
       body: JSON.stringify(body),
@@ -64,8 +83,19 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
 
   toggleIsFavorite(place) {
     const state = get();
+
     const idToIsFavorite = { ...state.idToIsFavorite };
-    idToIsFavorite[place.id] = !idToIsFavorite[place.id];
-    set({ idToIsFavorite });
+    if (idToIsFavorite[place.id]) {
+      delete idToIsFavorite[place.id];
+    } else {
+      idToIsFavorite[place.id] = true;
+    }
+
+    const placeArray = state.placeArrayResponse.data?.places ?? [];
+    const favoritePlaceArray = filterFavoritePlaceArray(
+      idToIsFavorite,
+      placeArray,
+    );
+    set({ idToIsFavorite, favoritePlaceArray });
   },
 });

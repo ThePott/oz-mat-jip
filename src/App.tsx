@@ -7,9 +7,11 @@ import useBoundStore from "./shared/store";
 import MatJipSkeleton from "./features/matJip/MatJipSkeleton";
 import MessageBox from "./shared/components/edgeCases/MesssageBox";
 import { useGeolocation } from "./features/geolocation/geolocationHooks";
+import MatJipCard from "./features/matJip/MatJipCard";
 
 const App = () => {
   const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
+  const favoritePlaceArray = useBoundStore((state) => state.favoritePlaceArray);
 
   useGetAfterMount("/places");
   useGeolocation();
@@ -36,24 +38,9 @@ const App = () => {
           )}
         </div>
         <ExpandableSidebar widthInPixel={200} position="RIGHT">
-          <p className="border-1 border-dimdim hover:border-dim">
-            sidebar content
-          </p>
-          <p className="border-1 border-dimdim hover:border-dim">
-            sidebar content
-          </p>
-          <p className="border-1 border-dimdim hover:border-dim">
-            sidebar content
-          </p>
-          <p className="border-1 border-dimdim hover:border-dim">
-            sidebar content
-          </p>
-          <p className="border-1 border-dimdim hover:border-dim">
-            sidebar content
-          </p>
-          <p className="border-1 border-dimdim hover:border-dim">
-            sidebar content
-          </p>
+          {favoritePlaceArray.map((place) => (
+            <MatJipCard place={place} />
+          ))}
         </ExpandableSidebar>
       </Hstack>
     </FullScreen>

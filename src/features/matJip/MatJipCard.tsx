@@ -48,6 +48,9 @@ const MatJipCard = memo(({ place }: { place: Place }) => {
     if (!idToIsFavorite[place.id]) {
       const body = { place: place };
       apiRequest("POST", "/users/places", body);
+    } else {
+      console.log({ id: place.id });
+      apiRequest("DELETE", "/users/places/{placeId}", undefined, place.id);
     }
     toggleIsFavorite(place);
   };

@@ -30,6 +30,8 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
     }
 
     const url = makeUrlPlaces(endpoint, ...params);
+    console.log({ params });
+    debugger;
     const options = {
       method,
       body: JSON.stringify(body),

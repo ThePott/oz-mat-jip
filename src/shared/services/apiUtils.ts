@@ -19,9 +19,8 @@ export const makeUrlPlaces = (endpoint: Endpoint, ...params: string[]) => {
     throw new CustomError("PRE_API");
   }
 
-  let url = `${baseUrl}${endpoint}`;
-  placeholderArray.forEach((placeholder, index) => {
-    url.replace(placeholder, params[index]);
-  });
+  const url = placeholderArray.reduce((acc, placeholder, index) => {
+    return acc.replace(placeholder, params[index]);
+  }, `${baseUrl}${endpoint}`);
   return url;
 };

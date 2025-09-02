@@ -16,6 +16,7 @@ const useBoundStore = create<BoundState>()(
       partialize: (state) => ({
         placeArrayResponse: state.placeArrayResponse,
         idToIsFavorite: state.idToIsFavorite,
+        favoritePlaceArray: state.favoritePlaceArray,
       }),
     },
   ),

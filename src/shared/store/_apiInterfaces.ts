@@ -43,5 +43,5 @@ export interface ApiState {
     ...params: string[]
   ) => void;
   toggleIsFavorite: (place: Place) => void;
-  // filterFavoritePlaceArray: () => Place[];
+  updateFavoritePlaceArray: () => void;
 }

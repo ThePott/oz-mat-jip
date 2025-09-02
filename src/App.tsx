@@ -8,6 +8,7 @@ import MatJipSkeleton from "./features/matJip/MatJipSkeleton";
 import MessageBox from "./shared/components/edgeCases/MesssageBox";
 import { useGeolocation } from "./features/geolocation/geolocationHooks";
 import MatJipCard from "./features/matJip/MatJipCard";
+import { useUpdateFavoriteArray } from "./features/matJip/useUpdateFavoriteArray";
 
 const App = () => {
   const placeArrayResponse = useBoundStore((state) => state.placeArrayResponse);
@@ -15,6 +16,7 @@ const App = () => {
 
   useGetAfterMount("/places");
   useGeolocation();
+  useUpdateFavoriteArray();
   console.log("---- app re rendered");
   return (
     <FullScreen>

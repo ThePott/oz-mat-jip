@@ -91,11 +91,17 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
       idToIsFavorite[place.id] = true;
     }
 
+    set({ idToIsFavorite });
+  },
+  updateFavoritePlaceArray() {
+    const state = get();
+    const idToIsFavorite = state.idToIsFavorite;
     const placeArray = state.placeArrayResponse.data?.places ?? [];
+
     const favoritePlaceArray = filterFavoritePlaceArray(
       idToIsFavorite,
       placeArray,
     );
-    set({ idToIsFavorite, favoritePlaceArray });
+    set({ favoritePlaceArray });
   },
 });

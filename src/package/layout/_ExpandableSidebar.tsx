@@ -29,7 +29,7 @@ const FloatingSidebar = ({
   return (
     <div
       {...props}
-      className={`bg-red-400 ${positionClassName} ${widthClassName} absolute shrink-0 ${className}`}
+      className={`${className} ${positionClassName} ${widthClassName} absolute shrink-0`}
     >
       <Vstack gap={gap}>{children}</Vstack>
     </div>
@@ -41,11 +41,19 @@ const ExpandableSidebar = ({
   children,
   ...props
 }: ExpandableSidebarProps) => {
+  const { position } = props;
   const widthStyle = {
     minWidth: `${widthInPixel}px`,
   };
+
+  const borderPositionClassName =
+    position === "LEFT" ? "border-r-1" : "border-l-1";
+
   return (
-    <div style={widthStyle} className={`h-full  relative`}>
+    <div
+      style={widthStyle}
+      className={`${borderPositionClassName} h-full overflow-x-hidden overflow-y-scroll relative border-dim`}
+    >
       <FloatingSidebar {...props}>{children}</FloatingSidebar>
       <p>what</p>
     </div>

@@ -39,7 +39,11 @@ const App = () => {
             <MatJipContent placeArray={placeArrayResponse.data?.places ?? []} />
           )}
         </div>
-        <ExpandableSidebar widthInPixel={200} position="RIGHT">
+        <ExpandableSidebar
+          widthInPixel={200}
+          position="RIGHT"
+          className="pt-3 pl-3"
+        >
           {favoritePlaceArray.map((place) => (
             <MatJipCard place={place} />
           ))}

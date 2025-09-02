@@ -2,7 +2,7 @@ import type { StateCreator } from "zustand";
 import type { BoundState } from "./boundState";
 import type {
   ApiState,
-  IdToIsFavorte,
+  IdToIsFavorite,
   Place,
   PlaceResponse,
   ResourceState,
@@ -11,7 +11,7 @@ import { makeUrlPlaces } from "../services/apiUtils";
 import easyFetch from "../services/easyFetch";
 
 const filterFavoritePlaceArray = (
-  idToIsFavorite: IdToIsFavorte,
+  idToIsFavorite: IdToIsFavorite,
   placeArray: Place[],
 ) => {
   const favoriteIdArray = Object.keys(idToIsFavorite);
@@ -110,5 +110,21 @@ export const createApiSlice: StateCreator<BoundState, [], [], ApiState> = (
       placeArray,
     );
     set({ favoritePlaceArray });
+  },
+  updateIdToIsFavorite() {
+    const state = get();
+    const responseData = state.favoritePlaceArrayResponse.data;
+    if (!responseData) {
+      return;
+    }
+    const favoritePlaceArray = responseData.places ?? [];
+    const idToIsFavorite = favoritePlaceArray.reduce(
+      (acc: IdToIsFavorite, place) => {
+        acc[place.id] = true;
+        return acc;
+      },
+      {},
+    );
+    set({ idToIsFavorite });
   },
 });

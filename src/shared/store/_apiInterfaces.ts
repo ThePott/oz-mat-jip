@@ -29,12 +29,12 @@ export interface PlaceResponse {
   sortedBy?: SortedBy;
 }
 
-export type IdToIsFavorte = Record<string, true>;
+export type IdToIsFavorite = Record<string, true>;
 
 export interface ApiState {
   placeArrayResponse: ResourceState<PlaceResponse>;
   favoritePlaceArrayResponse: ResourceState<PlaceResponse>;
-  idToIsFavorite: IdToIsFavorte;
+  idToIsFavorite: IdToIsFavorite;
   favoritePlaceArray: Place[];
 
   apiRequest: (
@@ -45,4 +45,5 @@ export interface ApiState {
   ) => void;
   toggleIsFavorite: (place: Place) => void;
   updateFavoritePlaceArray: () => void;
+  updateIdToIsFavorite: () => void;
 }

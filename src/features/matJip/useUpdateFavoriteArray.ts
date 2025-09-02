@@ -6,7 +6,17 @@ export const useUpdateFavoriteArray = () => {
   const updateFavoritePlaceArray = useBoundStore(
     (state) => state.updateFavoritePlaceArray,
   );
+  const favoritePlaceArrayResponse = useBoundStore(
+    (state) => state.favoritePlaceArrayResponse,
+  );
+  const updateIdToIsFavorite = useBoundStore(
+    (state) => state.updateIdToIsFavorite,
+  );
   useEffect(() => {
     updateFavoritePlaceArray();
   }, [idToIsFavorite]);
+
+  useEffect(() => {
+    updateIdToIsFavorite();
+  }, [favoritePlaceArrayResponse]);
 };
